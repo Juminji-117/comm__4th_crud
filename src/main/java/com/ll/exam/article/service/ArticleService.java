@@ -39,7 +39,7 @@ public class ArticleService {
 
     public ArticleDto getPrevArticle(ArticleDto articleDto) { // 매개변수 ArticleDto 객체 ver.
         long id = articleDto.getId();
-        return articleRepository.getPrevArticle(id);
+        return getPrevArticle(articleDto.getId());
     }
 
     public ArticleDto getPrevArticle(long id) { // 매개변수 id ver.
