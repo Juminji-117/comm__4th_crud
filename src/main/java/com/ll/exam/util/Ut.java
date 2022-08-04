@@ -28,7 +28,7 @@ public class Ut {
         return map;
     }
 
-    public static void sleep(long milli) {
+    public static void sleep(long milli) { // 스레드 잠깐 잠들게 하는 메서드
         try {
             Thread.sleep(milli);
         } catch (InterruptedException e) {
