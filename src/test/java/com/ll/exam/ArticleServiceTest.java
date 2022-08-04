@@ -102,4 +102,20 @@ public class ArticleServiceTest {
         assertThat(articleDto.getModifiedDate()).isNotNull();
         assertThat(articleDto.isBlind()).isEqualTo(false);
     }
+
+    @Test
+    public void modify() {
+        ArticleService articleService = Container.getObj(ArticleService.class);
+
+        articleService.modify(1, "제목 new", "내용 new", true);
+
+        ArticleDto articleDto = articleService.getArticleById(1);
+
+        assertThat(articleDto.getId()).isEqualTo(1);
+        assertThat(articleDto.getTitle()).isEqualTo("제목 new");
+        assertThat(articleDto.getBody()).isEqualTo("내용 new");
+        assertThat(articleDto.getCreatedDate()).isNotNull();
+        assertThat(articleDto.getModifiedDate()).isNotNull();
+        assertThat(articleDto.isBlind()).isEqualTo(true);
+    }
 }
