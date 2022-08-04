@@ -45,4 +45,8 @@ public class ArticleService {
     public ArticleDto getPrevArticle(long id) { // 매개변수 id ver.
         return articleRepository.getPrevArticle(id);
     }
+
+    public ArticleDto getNextArticle(long id) {
+        return articleRepository.getNextArticle(id);
+    }
 }
