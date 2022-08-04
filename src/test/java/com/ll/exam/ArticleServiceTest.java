@@ -17,11 +17,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ArticleServiceTest {
+    private MyMap myMap;
+    private ArticleService articleService;
+    private static final int TEST_DATA_SIZE = 100;
+
+    public ArticleServiceTest() {
+        myMap = Container.getObj(MyMap.class);
+        articleService = Container.getObj(ArticleService.class);
+    }
+
     // @BeforeAll -> 모든 DB 처리시에 처리되는 SQL을 콘솔에 출력
     @BeforeAll
     public void BeforeAll() {
-        MyMap myMap = Container.getObj(MyMap.class);
-
         myMap.setDevMode(true);
     }
 
@@ -38,9 +45,7 @@ public class ArticleServiceTest {
     }
 
     private void makeArticleTestData() {
-        MyMap myMap = Container.getObj(MyMap.class);
-
-        IntStream.rangeClosed(1, 3).forEach(no -> {
+        IntStream.rangeClosed(1, TEST_DATA_SIZE).forEach(no -> {
             boolean isBlind = false;
             String title = "제목%d".formatted(no);
             String body = "내용%d".formatted(no);
@@ -57,29 +62,23 @@ public class ArticleServiceTest {
     }
 
     private void truncateArticleTable() {
-        MyMap myMap = Container.getObj(MyMap.class);
         // 테이블 깔끔하게 삭제
         myMap.run("TRUNCATE article");
     }
 
     @Test
     public void 존재한다() {
-        ArticleService articleService = Container.getObj(ArticleService.class);
-
         assertThat(articleService).isNotNull();
     }
 
     @Test
     public void getArticles() {
-        ArticleService articleService = Container.getObj(ArticleService.class);
-
         List<ArticleDto> articleDtoList = articleService.getArticles();
-        assertThat(articleDtoList.size()).isEqualTo(3);
+        assertThat(articleDtoList.size()).isEqualTo(TEST_DATA_SIZE);
     }
 
     @Test
     public void getArticleById() {
-        ArticleService articleService = Container.getObj(ArticleService.class);
         ArticleDto articleDto = articleService.getArticleById(1);
 
         assertThat(articleDto.getId()).isEqualTo(1L);
@@ -96,13 +95,11 @@ public class ArticleServiceTest {
         // selectLong 메서드 이용
         long articlesCount = articleService.getArticlesCount();
 
-        assertThat(articlesCount).isEqualTo(3);
+        assertThat(articlesCount).isEqualTo(TEST_DATA_SIZE);
     }
 
     @Test
     public void write() {
-        ArticleService articleService = Container.getObj(ArticleService.class);
-
         long newArticleId = articleService.write("제목 new", "내용 new", false);
 
         ArticleDto articleDto = articleService.getArticleById(newArticleId);
@@ -118,8 +115,6 @@ public class ArticleServiceTest {
     @Test
     public void modify() {
         //Ut.sleep(5000);
-
-        ArticleService articleService = Container.getObj(ArticleService.class);
 
         articleService.modify(1, "제목 new", "내용 new", true);
 
@@ -138,8 +133,6 @@ public class ArticleServiceTest {
 
     @Test
     public void delete() {
-        ArticleService articleService = Container.getObj(ArticleService.class);
-
         articleService.delete(1);
 
         ArticleDto articleDto = articleService.getArticleById(1);
