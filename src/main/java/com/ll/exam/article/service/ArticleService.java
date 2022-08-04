@@ -35,4 +35,14 @@ public class ArticleService {
     public void delete(long id) {
         articleRepository.delete(id);
     }
+
+
+    public ArticleDto getPrevArticle(ArticleDto articleDto) { // 매개변수 ArticleDto 객체 ver.
+        long id = articleDto.getId();
+        return articleRepository.getPrevArticle(id);
+    }
+
+    public ArticleDto getPrevArticle(long id) { // 매개변수 id ver.
+        return articleRepository.getPrevArticle(id);
+    }
 }
