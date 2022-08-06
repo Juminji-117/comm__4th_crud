@@ -24,6 +24,10 @@ public class ArticleService {
         return articleRepository.getArticlesCount();
     }
 
+    public long write(String title, String body) {
+        return write(title, body, false);
+    }
+
     public long write(String title, String body, boolean isBlind) {
         return articleRepository.write(title, body, isBlind);
     }
