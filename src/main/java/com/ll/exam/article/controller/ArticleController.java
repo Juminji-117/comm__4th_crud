@@ -23,5 +23,9 @@ public class ArticleController {
         rq.setAttr("articles", articleDtos);
         rq.view("usr/article/list");
     }
+    @GetMapping("/usr/article/write")
+    public void showWrite(Rq rq) {
+        rq.view("usr/article/write");
+    }
 
 }
