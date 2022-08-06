@@ -13,9 +13,11 @@
         <ul class="mt-5">
             <c:forEach items="${articles}" var="article">
               <li>
-                            <a href="/usr/article/detail/${article.id}">
-                                <div class="badge badge-primary">${article.id}</div>
-                                ${article.title}
+                           <a href="/usr/article/detail/${article.id}" class="flex p-2 group">
+                                <span class="badge badge-primary mr-2">${article.id}</span>
+                                     <div class="group-hover:underline group-hover:text-[red]">
+                                        ${article.title} - ${article.createdDate}
+                                     </div>
                             </a>
             </li>
             </c:forEach>
