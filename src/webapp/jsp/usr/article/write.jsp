@@ -10,10 +10,13 @@ function ArticleSave__submitForm(form) {
         form.title.focus();
         return;
     }
-    form.body.value = form.body.value.trim();
-    if ( form.body.value.length == 0 ) {
-        alert('내용을 입력해주세요.');
-        form.body.focus();
+ const editor = $(form).find(".toast-ui-editor").data("data-toast-editor");
+     const markdown = editor.getMarkdown();
+     console.log(markdown);
+     form.body.value = markdown.trim();
+     if (form.body.value.length == 0) {
+         alert("내용을 입력해주세요");
+         editor.focus();
         return;
     }
     form.submit();
@@ -24,6 +27,7 @@ function ArticleSave__submitForm(form) {
     <div class="container px-3 mx-auto">
         <h1 class="font-bold text-lg"><i class="fa-solid fa-pen"></i> 작성</h1>
         <form method="POST" onsubmit="ArticleSave__submitForm(this); return false;">
+            <input type="hidden" name="body" />
             <div class="form-control w-full">
                 <label class="label">
                     <span class="label-text">제목</span>
@@ -35,7 +39,7 @@ function ArticleSave__submitForm(form) {
                 <label class="label">
                     <span class="label-text">내용</span>
                 </label>
-                <textarea name="body" maxlength="100000000" placeholder="내용을 입력해주세요." class="textarea textarea-bordered w-full" rows="20"></textarea>
+                <div class="toast-ui-editor" toast-ui-editor--height="calc(100vh - 300px)"></div>
             </div>
 
             <div class="mt-3">
