@@ -40,7 +40,7 @@ html > body {
 
 <header>
     <div class="container py-3 px-3 mx-auto flex">
-        <a href="/usr/article/list" class="mr-auto">(●'◡'●) 개발자 홍길동</a>
+        <a href="/usr/article/list" class="mr-auto">개발자 주민지 블로그 👩‍💻</a>
 
         <ul class="flex gap-3">
             <li>
