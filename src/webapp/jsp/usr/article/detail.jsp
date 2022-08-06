@@ -16,8 +16,12 @@
                 <i class="fa-solid fa-pen-to-square"></i> 수정 : ${article.modifiedDate}
             </div>
             <div>
-                ${article.body}
-            </div>
+                <div class="toast-ui-viewer">
+                    <script type="text/x-template">
+                        ${article.body}
+                    </script>
+                </div>
+              </div>
         </div>
     </div>
 </section>
